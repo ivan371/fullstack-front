@@ -1,34 +1,34 @@
-import React from 'react'
-import { FormWrapper, FormItem } from '../styled'
+import React from "react";
+import { FormWrapper, FormItem } from "../styled";
 
 const Registration: React.FC = () => {
-  const [username, setUsername] = React.useState('')
-  const [password, setPassword] = React.useState('')
-  const [firstName, setFirstName] = React.useState('')
-  const [lastName, setLastName] = React.useState('')
-  const [email, setEmail] = React.useState('')
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
+  const [email, setEmail] = React.useState("");
 
   const onSubmit = React.useCallback(
-    async (event) => {
-      event.preventDefault()
+    async event => {
+      event.preventDefault();
       const data = JSON.stringify({
         username,
         password,
         firstName,
         lastName,
         email
-      })
+      });
 
-      await fetch('http://localhost:8000/api/users/', {
-        method: 'post',
+      await fetch("https://mipt-back.herokuapp.com/api/users/", {
+        method: "post",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json"
         },
         body: data
-      })
+      });
     },
     [username, password, firstName, lastName, email]
-  )
+  );
 
   return (
     <FormWrapper>
@@ -40,7 +40,7 @@ const Registration: React.FC = () => {
             name="username"
             required
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={e => setUsername(e.target.value)}
           />
         </FormItem>
         <FormItem>
@@ -50,7 +50,7 @@ const Registration: React.FC = () => {
             name="password"
             required
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
           />
         </FormItem>
         <FormItem>
@@ -60,7 +60,7 @@ const Registration: React.FC = () => {
             name="firstname"
             required
             value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            onChange={e => setFirstName(e.target.value)}
           />
         </FormItem>
         <FormItem>
@@ -70,7 +70,7 @@ const Registration: React.FC = () => {
             name="lastname"
             required
             value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            onChange={e => setLastName(e.target.value)}
           />
         </FormItem>
         <FormItem>
@@ -80,7 +80,7 @@ const Registration: React.FC = () => {
             name="e-mail"
             required
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
           />
         </FormItem>
         <button type="submit" onClick={onSubmit}>
@@ -88,7 +88,7 @@ const Registration: React.FC = () => {
         </button>
       </form>
     </FormWrapper>
-  )
-}
+  );
+};
 
-export default Registration
+export default Registration;

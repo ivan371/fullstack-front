@@ -1,53 +1,56 @@
-import React from 'react'
-import { FormWrapper, FormItem } from '../styled'
+import React from "react";
+import { FormWrapper, FormItem } from "../styled";
 
 interface ILoginProps {
-  history: any
+  history: any;
 }
 
-const Login: React.FC<ILoginProps> = (props) => {
-  const { history } = props
+const Login: React.FC<ILoginProps> = props => {
+  const { history } = props;
 
-  const [username, setUsername] = React.useState('')
-  const [password, setPassword] = React.useState('')
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
   const onSubmit = React.useCallback(
-    async (event) => {
-      event.preventDefault()
-      window.localStorage.setItem('auth', '123')
-      const response = await fetch('http://localhost:8000/api/token/', {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          username,
-          password
-        })
-      })
+    async event => {
+      event.preventDefault();
+      window.localStorage.setItem("auth", "123");
+      const response = await fetch(
+        "https://mipt-back.herokuapp.com/api/token/",
+        {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            username,
+            password
+          })
+        }
+      );
 
-      const { access, refresh } = await response.json()
+      const { access, refresh } = await response.json();
 
-      window.localStorage.setItem('access', access)
-      window.localStorage.setItem('refresh', refresh)
-      window.location.href = '/'
+      window.localStorage.setItem("access", access);
+      window.localStorage.setItem("refresh", refresh);
+      window.location.href = "/";
     },
     [username, password]
-  )
+  );
 
   const onChangeUsername = React.useCallback(
-    (event) => {
-      setUsername(event.target.value)
+    event => {
+      setUsername(event.target.value);
     },
     [username]
-  )
+  );
 
   const onChangePassword = React.useCallback(
-    (event) => {
-      setPassword(event.target.value)
+    event => {
+      setPassword(event.target.value);
     },
     [password]
-  )
+  );
 
   return (
     <FormWrapper>
@@ -77,7 +80,7 @@ const Login: React.FC<ILoginProps> = (props) => {
         </button>
       </form>
     </FormWrapper>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
